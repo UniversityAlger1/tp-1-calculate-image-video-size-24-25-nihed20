@@ -15,19 +15,18 @@ float coloredBitmap(int w, int h, char* unit) {
         return -1; // Retourne -1 pour indiquer une erreur
     }
 
-    // Calcul de la taille en bits
-    // Chaque pixel utilise 3 octets (24 bits), donc taille totale en bits :
-    float sizeInBits = (float)(w * h * 3 * 8);
+    // Utilisation de long long pour éviter des débordements avec de grandes tailles d'images
+    long long sizeInBits = (long long)(w) * (long long)(h) * 3 * 8; // Chaque pixel utilise 3 octets (24 bits)
 
     // Conversion en fonction de l'unité spécifiée
     if (strcmp(unit, "bt") == 0) { // Bits
-        return sizeInBits;
+        return (float)sizeInBits;
     } else if (strcmp(unit, "ko") == 0) { // Kilobits
-        return sizeInBits / 1024;
+        return (float)sizeInBits / 1024;
     } else if (strcmp(unit, "mo") == 0) { // Megabits
-        return sizeInBits / (1024 * 1024);
+        return (float)sizeInBits / (1024 * 1024);
     } else if (strcmp(unit, "go") == 0) { // Gigabits
-        return sizeInBits / (1024 * 1024 * 1024);
+        return (float)sizeInBits / (1024 * 1024 * 1024);
     } else {
         fprintf(stderr, "Erreur : unité invalide (%s). Utilisez 'bt', 'ko', 'mo' ou 'go'.\n", unit);
         return -1; // Retourne -1 pour indiquer une erreur
